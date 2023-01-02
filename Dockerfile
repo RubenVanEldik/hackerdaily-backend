@@ -1,8 +1,8 @@
 FROM hasura/graphql-engine:latest.cli-migrations-v2
 
 # Copy the volumes
-COPY migrations /hasura-migrations
-COPY metadata /hasura-metadata
+# COPY migrations /hasura-migrations
+# COPY metadata /hasura-metadata
 
 # Set the dynamic environment variables
 ENV HASURA_GRAPHQL_ADMIN_SECRET $HASURA_GRAPHQL_ADMIN_SECRET
