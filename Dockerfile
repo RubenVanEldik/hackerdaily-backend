@@ -5,7 +5,6 @@ FROM hasura/graphql-engine:latest.cli-migrations-v2
 # COPY metadata /hasura-metadata
 
 # Set the dynamic environment variables
-ENV HASURA_GRAPHQL_SERVER_PORT $PORT
 ENV HASURA_GRAPHQL_ADMIN_SECRET $HASURA_GRAPHQL_ADMIN_SECRET
 
 # Set the fixed environment variables
