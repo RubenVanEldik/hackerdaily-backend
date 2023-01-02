@@ -11,8 +11,6 @@ services:
       property: connectionString
   - key: HASURA_GRAPHQL_ENABLE_CONSOLE
     value: true
-  - key: PORT
-    value: 10000
  - key: HASURA_GRAPHQL_ADMIN_SECRET
     generateValue: true
 databases:
