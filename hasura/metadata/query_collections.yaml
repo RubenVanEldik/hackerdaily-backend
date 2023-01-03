@@ -1,1 +1,44 @@
-[]
+- name: allowed-queries
+  definition:
+    queries:
+      - name: fetch_stories
+        query: |
+          query ($startDate: timestamptz!, $endDate: timestamptz!) {
+            stories(where: {score:{_gte:1},posted_at:{_gte:$startDate,_lte:$endDate}}, order_by: {score:desc}, limit: 30) {
+              id
+              title
+              text
+              url
+              score
+              descendants
+              user_id
+            }
+          }
+      - name: fetch_comments
+        query: |
+          query ($id: Int!) {
+            story(id: $id) {
+              id
+              title
+              text
+              url
+              score
+              user_id
+              comments(where: {user_id:{_is_null:false}}) {
+                id
+                text
+                posted_at
+                user_id
+                score
+                descendants
+                parent_comment_id
+              }
+            }
+          }
+      - name: send_feedback
+        query: |
+          mutation ($whyUseIt: String, $toBeImproved: String, $email: String) {
+            insert_feedback(objects: {why_use_it:$whyUseIt,to_be_improved:$toBeImproved,email:$email}) {
+              affected_rows
+            }
+          }
