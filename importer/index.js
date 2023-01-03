@@ -1,9 +1,33 @@
+const fetch = require('node-fetch')
+require('dotenv').config()
+
 const fetchItemsToFetch = require('./helpers/fetchItemsToFetch')
 const fetchOldestSavedItem = require('./helpers/fetchOldestSavedItem')
 const queryHackerNews = require('./helpers/queryHackerNews')
 const sendHeartbeat = require('./helpers/sendHeartbeat')
 const upsertItem = require('./helpers/upsertItem')
 const upsertUser = require('./helpers/upsertUser')
+
+/**
+  * waitUntilHackerDailyIsLive - Only return when the HackerDaily backend is available
+  *
+  * @return {void}
+  */
+const waitUntilHackerDailyIsLive = async () => {
+  try {
+    const response = await fetch(`${process.env.BACKEND_URL}/healthz`)
+
+    if (await response.text() !== 'OK') {
+      throw new Error()
+    }
+  } catch (err) {
+    console.log('The HackerDaily backend is not yet available')
+
+    // Wait 2 seconds and try again
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    await waitUntilHackerDailyIsLive()
+  }
+}
 
 /**
   * fetchNewItems - Fetch all items that have been added since the last update
@@ -68,8 +92,11 @@ const updateItems = async () => {
   sendHeartbeat()
 }
 
-// Import (almost) all missing items
-importNewItems()
+(async function () {
+  // Wait until the HackerDaily backend is available
+  await waitUntilHackerDailyIsLive()
 
-// Import the new items every 25 seconds
-setInterval(updateItems, 25000)
+  // Import (almost) all missing items and simultaniously start the update loop
+  importNewItems()
+  setInterval(updateItems, 25000)
+})()
