@@ -13,6 +13,24 @@ services:
       property: connectionString
   - key: HASURA_GRAPHQL_ADMIN_SECRET
     generateValue: true
+- type: pserv
+  name: hackerdaily-importer
+  plan: starter
+  env: node
+  rootDir: importer
+  buildCommand: npm install
+  startCommand: node index.js
+  envVars:
+  - key: BACKEND_URL
+    fromService:
+      type: web
+      name: hackerdaily-backend
+      property: host
+  - key: HASURA_ADMIN_SECRET
+    fromService:
+      type: web
+      name: hackerdaily-backend
+      envVarKey: HASURA_GRAPHQL_ADMIN_SECRET
 databases:
 - name: hackerdaily-database
   plan: starter

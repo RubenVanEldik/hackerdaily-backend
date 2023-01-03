@@ -1,0 +1,26 @@
+{
+  "name": "hackerdaily-importer",
+  "description": "The import program for HackerDaily; it imports all new and updated Hacker News posts",
+  "author": "Ruben van Eldik",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "get-urls": "^11.0.0",
+    "graphql-request": "^5.1.0",
+    "node-fetch": "^2.6.7",
+    "sentiment": "^5.0.2",
+    "url-parse": "^1.5.10"
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-standard": "^5.0.0"
+  }
+}
