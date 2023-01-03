@@ -1,8 +1,7 @@
 const { GraphQLClient } = require('graphql-request')
 require('dotenv').config()
 
-const backendUrl = `${process.env.BACKEND_URL}/v1/graphql`
-const client = new GraphQLClient(backendUrl, {
+const client = new GraphQLClient(process.env.BACKEND_URL, {
   headers: {
     'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET
   }

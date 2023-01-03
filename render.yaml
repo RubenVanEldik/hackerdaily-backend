@@ -21,16 +21,15 @@ services:
   buildCommand: npm install
   startCommand: node index.js
   envVars:
-  - key: BACKEND_URL
-    fromService:
-      type: web
-      name: hackerdaily-backend
-      property: host
   - key: HASURA_ADMIN_SECRET
     fromService:
       type: web
       name: hackerdaily-backend
       envVarKey: HASURA_GRAPHQL_ADMIN_SECRET
+  - key: BACKEND_URL
+    sync: false
+  - key: BETTER_UPTIME_HEARTBEAT_KEY
+    sync: false
 databases:
 - name: hackerdaily-database
   plan: starter
