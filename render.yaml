@@ -1,6 +1,7 @@
 services:
 - type: web
   name: hackerdaily-backend
+  plan: starter
   env: docker
   rootDir: hasura
   autoDeploy: true
@@ -16,3 +17,4 @@ services:
     generateValue: true
 databases:
 - name: hackerdaily-database
+  plan: starter
