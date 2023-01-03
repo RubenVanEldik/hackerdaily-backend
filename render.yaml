@@ -2,6 +2,7 @@ services:
 - type: web
   name: hackerdaily-backend
   env: docker
+  rootDir: hasura
   autoDeploy: true
   healthCheckPath: /healthz
   envVars:
