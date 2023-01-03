@@ -1,0 +1,26 @@
+table:
+  name: users
+  schema: public
+configuration:
+  column_config: {}
+  custom_column_names: {}
+  custom_root_fields:
+    delete_by_pk: delete_user
+    insert_one: insert_user
+    select_by_pk: user
+    update_by_pk: update_user
+array_relationships:
+  - name: comments
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: comments
+          schema: public
+  - name: stories
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: stories
+          schema: public
