@@ -11,8 +11,6 @@ services:
     fromDatabase:
       name: hackerdaily-database
       property: connectionString
-  - key: HASURA_GRAPHQL_ENABLE_CONSOLE
-    value: true
   - key: HASURA_GRAPHQL_ADMIN_SECRET
     generateValue: true
 databases:
