@@ -34,3 +34,26 @@ computed_fields:
         name: comment_score
         schema: public
     comment: The HackerDaily score of a comment
+select_permissions:
+  - role: visitor
+    permission:
+      columns:
+        - dead
+        - deleted
+        - descendants
+        - id
+        - length
+        - parent_comment_id
+        - posted_at
+        - sentiment
+        - story_id
+        - text
+        - user_id
+      computed_fields:
+        - score
+      filter:
+        _and:
+          - dead:
+              _eq: false
+          - deleted:
+              _eq: false

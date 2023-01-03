@@ -21,3 +21,21 @@ array_relationships:
         table:
           name: comments
           schema: public
+select_permissions:
+  - role: visitor
+    permission:
+      columns:
+        - descendants
+        - id
+        - posted_at
+        - score
+        - text
+        - title
+        - url
+        - user_id
+      filter:
+        _and:
+          - dead:
+              _eq: false
+          - deleted:
+              _eq: false

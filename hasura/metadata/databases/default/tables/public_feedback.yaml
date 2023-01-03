@@ -1,3 +1,11 @@
 table:
   name: feedback
   schema: public
+insert_permissions:
+  - role: visitor
+    permission:
+      check: {}
+      columns:
+        - email
+        - to_be_improved
+        - why_use_it
