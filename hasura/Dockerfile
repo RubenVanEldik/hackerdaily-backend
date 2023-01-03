@@ -1,4 +1,4 @@
-FROM hasura/graphql-engine:latest.cli-migrations-v2
+FROM hasura/graphql-engine:latest.cli-migrations-v3
 
 # Copy the volumes
 COPY metadata /hasura-metadata
