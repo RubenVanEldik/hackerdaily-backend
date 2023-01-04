@@ -1,6 +1,6 @@
 services:
 - type: web
-  name: hackerdaily-backend
+  name: hackerdaily-server
   plan: starter
   env: docker
   rootDir: hasura
@@ -24,7 +24,7 @@ services:
   - key: HASURA_ADMIN_SECRET
     fromService:
       type: web
-      name: hackerdaily-backend
+      name: hackerdaily-server
       envVarKey: HASURA_GRAPHQL_ADMIN_SECRET
   - key: BACKEND_URL
     sync: false
