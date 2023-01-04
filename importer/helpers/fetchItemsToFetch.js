@@ -1,15 +1,13 @@
 const queryHackerNews = require('./queryHackerNews')
 const queryHackerDaily = require('./queryHackerDaily')
 
-const allStoryAndCommentIds = `
+const query = `
 {
   stories(order_by: {id: desc}, limit: 1) {
     id
-    imported_at
   }
   comments(order_by: {id: desc}, limit: 1) {
     id
-    imported_at
   }
 }
 `
@@ -26,13 +24,12 @@ module.exports = async () => {
     throw new Error('Max item on HN is not defined')
   }
 
-  const { stories, comments } = await queryHackerDaily(allStoryAndCommentIds)
+  // Query the most recent story and comment
+  const { stories: [lastStory], comments: [lastComment] } = await queryHackerDaily(query)
 
-  const items = [...stories.map(({ id }) => id), ...comments.map(({ id }) => id)]
-  const lastStoredItem = items.sort().reverse()[0]
-
+  // Get the ID of the first item that should be fetched
   const maxNumberOfItemsToFetch = 75000
-  const firstItemToFetch = Math.max(lastStoredItem ?? 0, maxNewItem - maxNumberOfItemsToFetch + 1)
+  const firstItemToFetch = Math.max(lastStory.id ?? 0, lastComment.id ?? 0, maxNewItem - maxNumberOfItemsToFetch) + 1
 
   const itemsToFetch = []
   for (let i = firstItemToFetch; i <= maxNewItem; i++) {
