@@ -53,21 +53,6 @@ const importMissingItems = async () => {
 }
 
 /**
- * randomTimeout - Wait a random amount of time before executing the function
- * to decrease the peak load on the back-end
- *
- * @param {Function} fn Function to call after timeout
- * @param {*} variable Variables for function
- *
- * @return {Result of fn} The invoked function
- */
-const randomTimeout = async (fn, variable) => {
-  const time = Math.random() * 20000
-  await new Promise(resolve => setTimeout(resolve, time))
-  return fn(variable)
-}
-
-/**
   * updateItems - Update all updated items that already exist in the HackerDaily back-end
   *
   * @return {void}
@@ -82,6 +67,12 @@ const updateItems = async () => {
 
   const oldestSavedItem = await fetchOldestSavedItem()
   const relevantItems = updates.items.filter(itemId => itemId >= oldestSavedItem)
+
+  // Wait between 0 and 20 seconds before calling the given funciton
+  const randomTimeout = async (fn, variable) => {
+    await new Promise(resolve => setTimeout(resolve, Math.random() * 20000))
+    return fn(variable)
+  }
 
   await Promise.all([
     ...updates.profiles.map(profile => randomTimeout(upsertUser, profile)),
