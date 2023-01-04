@@ -30,11 +30,11 @@ const waitUntilHackerDailyIsLive = async () => {
 }
 
 /**
-  * fetchNewItems - Fetch all items that have been added since the last update
+  * importMissingItems - Fetch all items that have been added since the last update
   *
   * @return {void}
   */
-const importNewItems = async () => {
+const importMissingItems = async () => {
   // Fetch an array of all new items
   const itemsToFetch = await fetchItemsToFetch()
   console.log(`${itemsToFetch.length} new items`)
@@ -97,6 +97,6 @@ const updateItems = async () => {
   await waitUntilHackerDailyIsLive()
 
   // Import (almost) all missing items and simultaniously start the update loop
-  importNewItems()
+  importMissingItems()
   setInterval(updateItems, 25000)
 })()
