@@ -9,7 +9,6 @@ require('dotenv').config()
 const sendHeartbeat = async () => {
   if (process.env.BETTER_UPTIME_HEARTBEAT_KEY) {
     await fetch(`https://betteruptime.com/api/v1/heartbeat/${process.env.BETTER_UPTIME_HEARTBEAT_KEY}`)
-    console.log('Heartbeat was sent!')
   }
 }
 
