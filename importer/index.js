@@ -45,7 +45,7 @@ const importMissingItems = async () => {
 
     // Update to the console
     if (item) {
-      const percentageDone = ((itemId - itemsToFetch[0]) / itemsToFetch.length * 100).toFixed(3)
+      const percentageDone = ((itemsToFetch.indexOf(itemId) + 1) / itemsToFetch.length * 100).toFixed(3)
       console.log(`${item.type.padEnd(7)} - ${item.id} (${percentageDone}%)`)
     }
   }
