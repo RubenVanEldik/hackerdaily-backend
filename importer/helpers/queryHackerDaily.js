@@ -22,8 +22,8 @@ const queryHackerDaily = async (query, variables) => {
     return response
   } catch (error) {
     // If there was a 'FetchError', try again, otherwise return undefined
-    if (error.name === 'FetchError') {
-      console.error('There was a fetch error for HackerDaily')
+    if (['FetchError', 'ClientError'].includes(error.name)) {
+      console.error(`There was a '${error.name}' when querying HackerDaily`)
       return await queryHackerDaily(query, variables)
     }
     console.error(error)
