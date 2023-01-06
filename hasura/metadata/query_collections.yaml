@@ -1,17 +1,11 @@
 - name: allowed-queries
   definition:
     queries:
-      - name: fetch_stories
+      - name: send_feedback
         query: |
-          query ($startDate: timestamptz!, $endDate: timestamptz!) {
-            stories(where: {score:{_gte:1},posted_at:{_gte:$startDate,_lte:$endDate}}, order_by: {score:desc}, limit: 30) {
-              id
-              title
-              text
-              url
-              score
-              descendants
-              user_id
+          mutation ($whyUseIt: String, $toBeImproved: String, $email: String) {
+            insert_feedback(objects: {why_use_it:$whyUseIt,to_be_improved:$toBeImproved,email:$email}) {
+              affected_rows
             }
           }
       - name: fetch_comments
@@ -24,7 +18,7 @@
               url
               score
               user_id
-              comments(where: {user_id:{_is_null:false}}) {
+              comments {
                 id
                 text
                 posted_at
@@ -35,10 +29,16 @@
               }
             }
           }
-      - name: send_feedback
+      - name: fetch_stories
         query: |
-          mutation ($whyUseIt: String, $toBeImproved: String, $email: String) {
-            insert_feedback(objects: {why_use_it:$whyUseIt,to_be_improved:$toBeImproved,email:$email}) {
-              affected_rows
+          query ($startDate: timestamptz!, $endDate: timestamptz!) {
+            stories(where: {posted_at:{_gte:$startDate,_lte:$endDate}}, order_by: {score:desc}, limit: 30) {
+              id
+              title
+              text
+              url
+              score
+              descendants
+              user_id
             }
           }
