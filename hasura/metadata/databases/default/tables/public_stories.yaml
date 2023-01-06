@@ -39,3 +39,5 @@ select_permissions:
               _eq: false
           - deleted:
               _eq: false
+          - score:
+              _is_null: false
