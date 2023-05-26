@@ -21,7 +21,7 @@ const waitUntilHackerDailyIsLive = async () => {
       throw new Error()
     }
   } catch (err) {
-    console.log('The HackerDaily backend is not yet available')
+    console.log(err, 'The HackerDaily backend is not yet available')
 
     // Wait 2 seconds and try again
     await new Promise(resolve => setTimeout(resolve, 2000))
